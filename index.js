@@ -35,3 +35,18 @@ function makeFreelaner() {
     rate: rate,
   };
 }
+
+// ===== RENDER =====
+
+function render() {
+  const $app = document.querySelector("#app");
+  $app.innerHTML = `
+    <h1>Freelancer Forum</h1>
+    <AverageRate></AverageRate>
+    <p>The average rate is $100</p>
+    <freelancer></freelancer>
+`;
+  //$app.querySelector("AverageRate").replaceWith(AverageRate(freelancers));
+  $app.querySelector("freelancer").replaceWith(Freelancers(freelancers));
+}
+render();
