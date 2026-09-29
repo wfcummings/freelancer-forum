@@ -10,3 +10,13 @@ const NAMES = ["Alice", "Bob", "Carol", "Dave", "Eve"];
 const OCCUPATIONS = ["Writer", "Teacher", "Programmer", "Designer", "Engineer"];
 const PRICE_RANGE = { min: 20, max: 200 };
 const NUM_FREELANCERS = 100;
+
+// ===== STATE =====
+
+const freelancers = [];
+
+for (let i = 0; i < NUM_FREELANCERS; i++) {
+  const freelancer = makeFreelaner();
+  freelancers.push(freelancer);
+  return freelancers;
+}
