@@ -13,12 +13,7 @@ const NUM_FREELANCERS = 100;
 
 // ===== STATE =====
 
-const freelancers = [];
-
-for (let i = 0; i < NUM_FREELANCERS; i++) {
-  const freelancer = makeFreelancer();
-  freelancers.push(freelancer);
-}
+const freelancers = Array.from({ length: NUM_FREELANCERS }, makeFreelancer);
 
 function makeFreelancer() {
   const name = NAMES[Math.floor(Math.random() * NAMES.length)];
@@ -37,15 +32,20 @@ function makeFreelancer() {
 // ===== COMPONENTS =====
 
 function Freelancer(freelancer) {
-  const $freelancer = document.createElement("li");
-  $freelancer.classList.add("freelancer");
-  $freelancer.textContent = freelancer;
-  return $freelancer;
+  const $tr = document.createElement("tr");
+
+  $tr.innerHTML = `
+  <td>${freelancer.name}</td>
+  <td>${freelancer.occupation}</td>
+  <td>$${freelancer.rate}</td>
+  `;
+  return $tr;
 }
 
 function Freelancers(freelancers) {
   const $freelancers = document.createElement("ul");
   $freelancers.classList.add("ul");
+
   const $children = freelancers.map(Freelancer);
   $freelancers.replaceChildren(...$children);
   return $freelancers;
