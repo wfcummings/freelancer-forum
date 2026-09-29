@@ -14,6 +14,7 @@ const NUM_FREELANCERS = 100;
 // ===== STATE =====
 
 const freelancers = Array.from({ length: NUM_FREELANCERS }, makeFreelancer);
+const averageRate = getAverageRate(freelancers);
 
 function makeFreelancer() {
   const name = NAMES[Math.floor(Math.random() * NAMES.length)];
@@ -29,6 +30,12 @@ function makeFreelancer() {
     rate,
   };
 }
+
+function getAverageRate() {
+  const sum = freelancers.reduce((sum, freelancer) => sum + freelancer.rate, 0);
+
+  return sum / freelancers.length;
+}
 // ===== COMPONENTS =====
 
 function Freelancer(freelancer) {
@@ -43,12 +50,29 @@ function Freelancer(freelancer) {
 }
 
 function Freelancers(freelancers) {
-  const $freelancers = document.createElement("ul");
-  $freelancers.classList.add("ul");
+  const $table = document.createElement("table");
 
-  const $children = freelancers.map(Freelancer);
-  $freelancers.replaceChildren(...$children);
-  return $freelancers;
+  $table.innerHTML = `
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Occupation</th>
+      <th>Rate</th>
+    </tr>
+    <tbody>
+    </tbody>
+  </thead>
+`;
+
+  const $freelancers = freelancers.map(Freelancer);
+  $table.querySelector("tbody").replaceChildren(...$freelancers);
+  return $table;
+}
+
+function AverageRate(averageRate) {
+  const $p = document.createElement("p");
+  $p.textContent = `The average rate is $${averageRate}.`;
+  return $p;
 }
 // ===== RENDER =====
 
@@ -56,10 +80,10 @@ function render() {
   const $app = document.querySelector("#app");
   $app.innerHTML = `
     <h1>Freelancer Forum</h1>
-    <p>The average rate is $100</p>
+    <AverageRate></AverageRate>
     <freelancer></freelancer>
 `;
-  //$app.querySelector("AverageRate").replaceWith(AverageRate(freelancers));
+  $app.querySelector("AverageRate").replaceWith(AverageRate(averageRate));
   $app.querySelector("freelancer").replaceWith(Freelancers(freelancers));
 }
 render();
