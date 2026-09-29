@@ -16,12 +16,11 @@ const NUM_FREELANCERS = 100;
 const freelancers = [];
 
 for (let i = 0; i < NUM_FREELANCERS; i++) {
-  const freelancer = makeFreelaner();
+  const freelancer = makeFreelancer();
   freelancers.push(freelancer);
-  return freelancers;
 }
 
-function makeFreelaner() {
+function makeFreelancer() {
   const name = NAMES[Math.floor(Math.random() * NAMES.length)];
   const occupation =
     OCCUPATIONS[Math.floor(Math.random() * OCCUPATIONS.length)];
@@ -30,19 +29,33 @@ function makeFreelaner() {
     Math.floor(Math.random() * (PRICE_RANGE.max - PRICE_RANGE.min));
 
   return {
-    name: name,
-    occupation: occupation,
-    rate: rate,
+    name,
+    occupation,
+    rate,
   };
 }
+// ===== COMPONENTS =====
 
+function Freelancer(freelancer) {
+  const $freelancer = document.createElement("li");
+  $freelancer.classList.add("freelancer");
+  $freelancer.textContent = freelancer;
+  return $freelancer;
+}
+
+function Freelancers(freelancers) {
+  const $freelancers = document.createElement("ul");
+  $freelancers.classList.add("ul");
+  const $children = freelancers.map(Freelancer);
+  $freelancers.replaceChildren(...$children);
+  return $freelancers;
+}
 // ===== RENDER =====
 
 function render() {
   const $app = document.querySelector("#app");
   $app.innerHTML = `
     <h1>Freelancer Forum</h1>
-    <AverageRate></AverageRate>
     <p>The average rate is $100</p>
     <freelancer></freelancer>
 `;
