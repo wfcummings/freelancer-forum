@@ -20,3 +20,18 @@ for (let i = 0; i < NUM_FREELANCERS; i++) {
   freelancers.push(freelancer);
   return freelancers;
 }
+
+function makeFreelaner() {
+  const name = NAMES[Math.floor(Math.random() * NAMES.length)];
+  const occupation =
+    OCCUPATIONS[Math.floor(Math.random() * OCCUPATIONS.length)];
+  const rate =
+    PRICE_RANGE.min +
+    Math.floor(Math.random() * (PRICE_RANGE.max - PRICE_RANGE.min));
+
+  return {
+    name: name,
+    occupation: occupation,
+    rate: rate,
+  };
+}
